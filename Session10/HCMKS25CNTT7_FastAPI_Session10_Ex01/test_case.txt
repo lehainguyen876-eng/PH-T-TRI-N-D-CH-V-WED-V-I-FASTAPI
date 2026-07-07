@@ -1,0 +1,11 @@
+Chỉ ra lỗi bằng test case cụ thể (Điền vào bảng sau)
+
+STT 1:
+- Hành vi lỗi: Thiếu lệnh lưu dữ liệu (Chỉ mới dùng db.add mà không có db.commit).
+- Hậu quả với MySQL: Dữ liệu chỉ nằm trên RAM ảo chứ chưa ghi xuống đĩa cứng. Khi API chạy xong, MySQL hoàn toàn trống rỗng.
+- Cách khắc phục: Thêm lệnh db.commit() để lưu vĩnh viễn và db.refresh() để đồng bộ lại ID tự tăng từ MySQL về Python.
+
+STT 2:
+- Hành vi lỗi: Không đóng Session (Mở kết nối bằng db = SessionLocal() thủ công nhưng bỏ quên việc đóng).
+- Hậu quả với MySQL: Kết nối bị treo, không được trả lại cho Connection Pool. Nếu gửi request liên tục, server sẽ cạn kiệt tài nguyên kết nối và bị sập.
+- Cách khắc phục: Sử dụng cơ chế Depends(get_db) của FastAPI ở hàm API để hệ thống tự động đóng kết nối (db.close()) một cách an toàn sau khi chạy xong.
