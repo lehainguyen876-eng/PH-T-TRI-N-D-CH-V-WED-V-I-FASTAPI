@@ -1,0 +1,13 @@
+============================================================
+PHẦN 1: BÁO CÁO PHÂN TÍCH BÀI TOÁN - API KHỞI TẠO PHIẾU KHO VẬN
+============================================================
+
+1. Phân tích Input / Output:
+- Input: Gồm 2 trường 'warehouse_code' và 'location' (Dữ liệu truyền lên dạng JSON).
+- Output: Trả về 'status_code' và 'message' thông báo công khai.
+
+2. Các bước xử lý tuần tự:
+- Bước 1: Nhận dữ liệu tạo kho vận từ Frontend gửi lên.
+- Bước 2: Chạy lệnh SELECT bằng hàm .filter() để kiểm tra xem 'warehouse_code' này đã có dưới MySQL chưa.
+- Bước 3: Nếu kết quả tìm kiếm tồn tại dữ liệu -> Chủ động chặn lại và trả về lỗi 400 Bad Request.
+- Bước 4: Nếu chưa tồn tại -> Chạy tiếp lệnh db.add() và db.commit() để lưu vĩnh viễn vào MySQL.
